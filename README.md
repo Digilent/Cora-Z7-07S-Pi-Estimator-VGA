@@ -1,4 +1,4 @@
-This project visualizes the process of estimating Pi using the Monte Carlo method, using the Cora Z7-10 and a Pmod VGA. With the Pmod VGA plugged into Pmod connectors JA and JB, and the VGA port connected to a monitor, a 640x480 screen will be shown. Points are randomly generated and placed within a square on the screen at a selectable rate (see the table below). BTN0 resets the demonstration and BTN1 is used to iterate through the point generation rates.
+This project visualizes the process of estimating Pi using the Monte Carlo method, using the Cora Z7-07S and a Pmod VGA. With the Pmod VGA plugged into Pmod connectors JA and JB, and the VGA port connected to a monitor, a 640x480 screen will be shown. Points are randomly generated and placed within a square on the screen at a selectable rate (see the table below). BTN0 resets the demonstration and BTN1 is used to iterate through the point generation rates.
 
 | LED1  | LED0  | Sample Rate  |
 |:-----:|:-----:|:------------:|
@@ -15,7 +15,7 @@ WARNING!!! This project is only supported in the 2017.4 version of Vivado.
 
 In order to program the project onto an FPGA:
 
-1. 	Download the most recent release ZIP archive (not the source ZIP) from the repo's [releases page](https://github.com/Digilent/Cora-Z7-10-Pi-Estimator-VGA/releases).
+1. 	Download the most recent release ZIP archive (not the source ZIP) from the repo's [releases page](https://github.com/Digilent/Cora-Z7-07S-Pi-Estimator-VGA/releases).
 
 2. 	Extract and open the downloaded ZIP. Double click on "Cora-Z7-07S-Pi-Estimator-VGA.xpr". This will launch an archived version of the project, in which a bitstream has already been generated.
 
