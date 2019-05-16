@@ -1,30 +1,34 @@
 `timescale 1ns / 1ps
-
-//////////////////////////////////////////////////////////////////////////////////
-// Company: Digilent
-// Engineer: Arthur Brown
-//////////////////////////////////////////////////////////////////////////////////
-
+`default_nettype none
 
 module debouncer #(
-    parameter DATA_WIDTH = 1,
-    parameter NOISE_PERIOD = 256,
-    parameter NOISE_PERIOD_CLOG2 = 8
+    parameter WIDTH = 1,
+    parameter CLOCKS = 256,
+    parameter CLOCKS_CLOG2 = 8
 ) (
-    input wire clk,
-    input wire [DATA_WIDTH-1:0] din,
-    output reg [DATA_WIDTH-1:0] dout = 0
+    input  wire clk,
+    input  wire [WIDTH-1:0] din,
+    output wire [WIDTH-1:0] dout
 );
     genvar i;
-    generate for (i=0; i<DATA_WIDTH; i=i+1) begin : PER_BIT
-        reg [NOISE_PERIOD_CLOG2-1:0] counter = 0;
+    generate for (i=0; i<WIDTH; i=i+1) begin : IDX
+        reg [CLOCKS_CLOG2-1:0] count = 'b0;
+        reg transitioning = 1'b0;
+        reg data = 1'b0;
         always@(posedge clk)
-            if (din[i] == dout[i])
-                counter <= 'b0;
-            else if (counter + 1 >= NOISE_PERIOD) begin
-                counter <= 'b0;
-                dout[i] <= din[i];
-            end else
-                counter <= counter + 1;
+            if (transitioning == 1'b1)
+                if (data != din[i])
+                    if (count >= CLOCKS-1) begin
+                        data <= din[i];
+                        transitioning <= 1'b0;
+                    end else
+                        count <= count + 1'b1;
+                else
+                    transitioning <= 1'b0;
+            else if (data != din[i]) begin
+                count <= 'b0;
+                transitioning <= 1'b1;
+            end
+        assign dout[i] = data;
     end endgenerate
 endmodule
